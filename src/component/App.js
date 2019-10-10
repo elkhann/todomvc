@@ -3,7 +3,12 @@ import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 import SearchForm from './SeachForm';
 import Footer from './Footer';
-import { DatePicker } from 'antd';
+
+import { Layout } from 'antd';
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+const { Header, Content } = Layout;
 
 const App = () => {
 	const [ todos, setTodos ] = useState([
@@ -75,14 +80,20 @@ const App = () => {
 	const visibleTodos = searchTodos(filterTodos(todos, filter), search);
 
 	return (
-		<div className="App">
-			<h1>todos {filter}</h1>
-			<SearchForm searchTodo={searchTodo} />
-			<TodoList todos={visibleTodos} removeTodo={removeTodo} completeTodo={completeTodo} />
-			<TodoForm addTodo={addTodo} />
-			<Footer todos={todos} changeFilter={changeFilter} />
-			<DatePicker />
-		</div>
+		<Layout className="App">
+			<Header theme="light" style={{ background: '#000' }}>
+				<Title style={{ color: 'white', margin: 5 }}>todos {filter}</Title>
+			</Header>
+
+			<Content style={{ padding: '10px 10px' }}>
+				<div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
+					<SearchForm searchTodo={searchTodo} />
+					<TodoList todos={visibleTodos} removeTodo={removeTodo} completeTodo={completeTodo} />
+					<TodoForm addTodo={addTodo} />
+					<Footer todos={todos} changeFilter={changeFilter} />
+				</div>
+			</Content>
+		</Layout>
 	);
 };
 

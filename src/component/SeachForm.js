@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Row, Col, Form, Input } from 'antd';
+
+const { Search } = Input;
 
 const SearchForm = ({ searchTodo }) => {
 	const [ value, setValue ] = useState('');
@@ -9,15 +12,19 @@ const SearchForm = ({ searchTodo }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				value={value}
-				placeholder="What need to search?"
-				onChange={(e) => setValue(e.target.value)}
-			/>
-			<button onClick={handleSubmit}>Search todo</button>
-		</form>
+		<Form onSubmit={handleSubmit}>
+			<Row gutter={12}>
+				<Col span={12}>
+					<Search
+						placeholder="What need to search?"
+						defaultValue={value}
+						enterButton="Search"
+						size="large"
+						onSearch={(value) => setValue(value)}
+					/>
+				</Col>
+			</Row>
+		</Form>
 	);
 };
 
