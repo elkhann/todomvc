@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const TodoForm = ({ addTodo }) => {
+const SearchForm = ({ searchTodo }) => {
 	const [ value, setValue ] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!value) return;
-		addTodo(value);
+		searchTodo(value);
 		setValue('');
 	};
 
@@ -15,12 +15,12 @@ const TodoForm = ({ addTodo }) => {
 			<input
 				type="text"
 				value={value}
-				placeholder="What need to be done?"
+				placeholder="What need to search?"
 				onChange={(e) => setValue(e.target.value)}
 			/>
-			<button onClick={handleSubmit}>Add todo</button>
+			<button onClick={handleSubmit}>Search todo</button>
 		</form>
 	);
 };
 
-export default TodoForm;
+export default SearchForm;

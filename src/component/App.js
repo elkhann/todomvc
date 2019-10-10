@@ -1,78 +1,87 @@
-import React, { useState } from "react";
-import TodoList from "./TodoList";
-import TodoForm from "./TodoForm";
-import Footer from "./Footer";
+import React, { useState } from 'react';
+import TodoList from './TodoList';
+import TodoForm from './TodoForm';
+import SearchForm from './SeachForm';
+import Footer from './Footer';
 
 const App = () => {
-  const [todos, setTodos] = useState([
-    {
-      text: "Make state",
-      isCompleted: false
-    },
-    {
-      text: "Make form",
-      isCompleted: false
-    },
-    {
-      text: "Make this app",
-      isCompleted: true
-    }
-  ]);
+	const [ todos, setTodos ] = useState([
+		{
+			text: 'Make state',
+			done: false
+		},
+		{
+			text: 'Make form',
+			done: false
+		},
+		{
+			text: 'Make this app',
+			done: true
+		}
+	]);
+	const [ search, setSearch ] = useState('');
+	const [ filter, setFilter ] = useState('all');
 
-  const [filter, setFilter] = useState("Active");
+	const changeFilter = (filter) => {
+		setFilter(filter);
+	};
 
-  const changeFilter = filter => {
-    setFilter(filter);
-  };
+	const addTodo = (text) => {
+		const newTodos = [ ...todos, { text, done: false } ];
+		setTodos(newTodos);
+	};
 
-  // const changeVisibleTodo = filter => {
-  //   switch (filter) {
-  //     case "Active":
-  //       let filteredTodos = [...todos].filter(todo => !todo.isCompleted);
-  //       return setVisibleTodo(filteredTodos);
-  //     case "Completed":
-  //       filteredTodos = [...todos].filter(todo => todo.isCompleted);
-  //       return setVisibleTodo(filteredTodos);
-  //     default:
-  //       filteredTodos = [...todos];
-  //       return setVisibleTodo(filteredTodos);
-  //   }
-  // };
+	const completeTodo = (index) => {
+		const newTodos = [ ...todos ];
+		newTodos[index].done ? (newTodos[index].done = false) : (newTodos[index].done = true);
 
-  // console.log(visibleTodo);
+		setTodos(newTodos);
+	};
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text, isCompleted: false }];
-    setTodos(newTodos);
-  };
+	const removeTodo = (index) => {
+		const newTodos = [ ...todos ];
+		newTodos.splice(index, 1);
+		setTodos(newTodos);
+	};
 
-  const completeTodo = index => {
-    const newTodos = [...todos];
-    newTodos[index].isCompleted
-      ? (newTodos[index].isCompleted = false)
-      : (newTodos[index].isCompleted = true);
+	const searchTodo = (text) => {
+		setSearch(text);
+	};
 
-    setTodos(newTodos);
-  };
+	const searchTodos = (todos, search) => {
+		if (search.length === 0) {
+			return todos;
+		}
 
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
+		return todos.filter((todo) => {
+			return todo.text.toLowerCase().indexOf(search.toLowerCase()) > -1;
+		});
+	};
 
-  return (
-    <div className="App">
-      <h1>todos {filter}</h1>
-      <TodoForm addTodo={addTodo} />
-      <TodoList
-        todos={todos}
-        removeTodo={removeTodo}
-        completeTodo={completeTodo}
-      />
-      <Footer todos={todos} changeFilter={changeFilter} />
-    </div>
-  );
+	const filterTodos = (todos, filter) => {
+		switch (filter) {
+			case 'all':
+				return todos;
+			case 'active':
+				return todos.filter((todo) => !todo.done);
+			case 'done':
+				return todos.filter((todo) => todo.done);
+			default:
+				return todos;
+		}
+	};
+
+	const visibleTodos = searchTodos(filterTodos(todos, filter), search);
+
+	return (
+		<div className="App">
+			<h1>todos {filter}</h1>
+			<SearchForm searchTodo={searchTodo} />
+			<TodoList todos={visibleTodos} removeTodo={removeTodo} completeTodo={completeTodo} />
+			<TodoForm addTodo={addTodo} />
+			<Footer todos={todos} changeFilter={changeFilter} />
+		</div>
+	);
 };
 
 export default App;
