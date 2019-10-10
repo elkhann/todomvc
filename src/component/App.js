@@ -3,6 +3,7 @@ import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 import SearchForm from './SeachForm';
 import Footer from './Footer';
+import { DatePicker } from 'antd';
 
 const App = () => {
 	const [ todos, setTodos ] = useState([
@@ -80,6 +81,7 @@ const App = () => {
 			<TodoList todos={visibleTodos} removeTodo={removeTodo} completeTodo={completeTodo} />
 			<TodoForm addTodo={addTodo} />
 			<Footer todos={todos} changeFilter={changeFilter} />
+			<DatePicker />
 		</div>
 	);
 };
