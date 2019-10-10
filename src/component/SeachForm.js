@@ -5,9 +5,7 @@ const SearchForm = ({ searchTodo }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!value) return;
 		searchTodo(value);
-		setValue('');
 	};
 
 	return (
