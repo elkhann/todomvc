@@ -3,12 +3,10 @@ import TodoList from "./TodoList";
 import TodoForm from "./AddTodoForm";
 import SearchForm from "./SeachTodoForm";
 import Filter from "./Filter";
+import Header from "./Header";
 
 import { Layout, Row, Col } from "antd";
-import { Typography } from "antd";
-
-const { Title } = Typography;
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const App = () => {
   const [todos, setTodos] = useState([
@@ -82,29 +80,9 @@ const App = () => {
 
   const visibleTodos = searchTodos(filterTodos(todos, filter), search);
 
-  const result = todos.filter(todo => !todo.done);
-  const message = () => {
-    if (todos.length > 0) {
-      if (result.length > 0) {
-        return <div>{result.length} item left to do</div>;
-      } else {
-        return <div>All item left to do</div>;
-      }
-    } else {
-      return <div>No item to do</div>;
-    }
-  };
-
   return (
     <Layout className="App">
-      <Header theme="light" style={{ background: "#000" }}>
-        <Title style={{ color: "white", margin: 5 }}>
-          <Row type="flex">
-            <Col span={12}>todos </Col>
-            <Col span={12}>{message()}</Col>
-          </Row>
-        </Title>
-      </Header>
+      <Header todos={todos}></Header>
 
       <Content style={{ padding: "10px 10px" }}>
         <Row type="flex" justify="center">
