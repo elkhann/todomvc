@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import TodoList from "./TodoList";
-import TodoForm from "./AddTodoForm";
-import SearchForm from "./SeachTodoForm";
-import Filter from "./Filter";
-import Header from "./Header";
+import React, { useState } from 'react';
+import TodoList from './TodoList';
+import TodoForm from './AddTodoForm';
+import SearchForm from './SeachTodoForm';
+import Filter from './Filter';
+import Header from './Header';
 
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
 const App = () => {
   const [todos, setTodos] = useState([
-    {
-      text: "Make state",
-      done: false
-    },
-    {
-      text: "Make form",
-      done: false
-    },
-    {
-      text: "Make this app",
-      done: true
-    }
+    // {
+    //   text: 'Make state',
+    //   done: false
+    // },
+    // {
+    //   text: 'Make form',
+    //   done: false
+    // },
+    // {
+    //   text: 'Make this app',
+    //   done: true
+    // }
   ]);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('all');
 
   const changeFilter = filter => {
     setFilter(filter);
@@ -60,43 +60,59 @@ const App = () => {
     }
 
     return todos.filter(todo => {
-      console.log(search);
-      return todo.text.toLowerCase().indexOf(search.toLowerCase()) > -1;
+      return (
+        todo.text
+          .toLowerCase()
+          .indexOf(search.toLowerCase()) > -1
+      );
     });
   };
 
   const filterTodos = (todos, filter) => {
     switch (filter) {
-      case "all":
+      case 'all':
         return todos;
-      case "active":
+      case 'active':
         return todos.filter(todo => !todo.done);
-      case "done":
+      case 'done':
         return todos.filter(todo => todo.done);
       default:
         return todos;
     }
   };
 
-  const visibleTodos = searchTodos(filterTodos(todos, filter), search);
+  const visibleTodos = searchTodos(
+    filterTodos(todos, filter),
+    search
+  );
 
   return (
-    <Layout className="App">
+    <Layout className='App'>
       <Header todos={todos}></Header>
 
-      <Content style={{ padding: "10px 10px" }}>
-        <Row type="flex" justify="center">
+      <Content style={{ padding: '10px 10px' }}>
+        <Row type='flex' justify='center'>
           <Col xs={24} md={18} xl={12}>
-            <div style={{ background: "#fff", padding: 24 }}>
-              <Row type="flex" gutter={16} justify="space-between">
-                <Col sm={12} xs={24} style={{ paddingBottom: "8px" }}>
+            <div
+              style={{ background: '#fff', padding: 24 }}
+            >
+              <Row
+                type='flex'
+                gutter={16}
+                justify='space-between'
+              >
+                <Col
+                  sm={12}
+                  xs={24}
+                  style={{ paddingBottom: '8px' }}
+                >
                   <SearchForm searchTodo={searchTodo} />
                 </Col>
                 <Col
                   sm={12}
                   xs={24}
-                  align="end"
-                  style={{ paddingBottom: "8px" }}
+                  align='end'
+                  style={{ paddingBottom: '8px' }}
                 >
                   <Filter
                     todos={todos}

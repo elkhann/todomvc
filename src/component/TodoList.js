@@ -1,19 +1,25 @@
-import React from "react";
-import { List, Button } from "antd";
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { List, Button } from 'antd';
 
 const TodoList = ({ todos, removeTodo, completeTodo }) => {
   return (
     <List
-      itemLayout="horizontal"
+      itemLayout='horizontal'
       dataSource={todos}
       renderItem={(todo, index) => (
         <List.Item>
           <List.Item.Meta
             title={todo.text}
             onClick={() => completeTodo(index)}
-            style={{ textDecoration: todo.done ? "line-through" : "" }}
+            style={{
+              textDecoration: todo.done
+                ? 'line-through'
+                : ''
+            }}
           />
-          <Button type="danger" onClick={removeTodo}>
+          <Button type='danger' onClick={removeTodo}>
             x
           </Button>
         </List.Item>
@@ -22,4 +28,8 @@ const TodoList = ({ todos, removeTodo, completeTodo }) => {
   );
 };
 
-export default TodoList;
+const mapStateToProps = ({ todos }) => ({
+  todos
+});
+
+export default connect(mapStateToProps)(TodoList);

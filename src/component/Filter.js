@@ -1,10 +1,10 @@
-import React from "react";
-import { Button } from "antd";
+import React from 'react';
+import { Button } from 'antd';
 
-const Footer = ({ todos, changeFilter, filter }) => {
+const Filter = ({ changeFilter, filter }) => {
   const isActive = type => {
     if (type === filter) {
-      return "primary";
+      return 'primary';
     }
   };
 
@@ -12,23 +12,23 @@ const Footer = ({ todos, changeFilter, filter }) => {
     <div>
       <Button.Group>
         <Button
-          type={isActive("all")}
-          size="large"
-          onClick={() => changeFilter("all")}
+          type={isActive('all')}
+          size='large'
+          onClick={() => changeFilter('all')}
         >
           All
         </Button>
         <Button
-          type={isActive("active")}
-          size="large"
-          onClick={() => changeFilter("active")}
+          type={isActive('active')}
+          size='large'
+          onClick={() => changeFilter('active')}
         >
           Active
         </Button>
         <Button
-          type={isActive("done")}
-          size="large"
-          onClick={() => changeFilter("done")}
+          type={isActive('done')}
+          size='large'
+          onClick={() => changeFilter('done')}
         >
           Completed
         </Button>
@@ -37,4 +37,4 @@ const Footer = ({ todos, changeFilter, filter }) => {
   );
 };
 
-export default Footer;
+export default Filter;

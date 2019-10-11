@@ -1,5 +1,6 @@
-import React from "react";
-import { Row, Col, Typography, Layout } from "antd";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Row, Col, Typography, Layout } from 'antd';
 
 const Header = ({ todos }) => {
   const result = todos.filter(todo => !todo.done);
@@ -16,12 +17,14 @@ const Header = ({ todos }) => {
   };
   return (
     <Layout.Header>
-      <Row type="flex" justify="center">
+      <Row type='flex' justify='center'>
         <Col xs={24} md={18} xl={12}>
-          <Typography.Title style={{ color: "white", margin: 5 }}>
-            <Row type="flex" justify="space-between">
+          <Typography.Title
+            style={{ color: 'white', margin: 5 }}
+          >
+            <Row type='flex' justify='space-between'>
               <Col span={6}>todos</Col>
-              <Col span={18} align="right">
+              <Col span={18} align='right'>
                 {message()}
               </Col>
             </Row>
@@ -32,4 +35,8 @@ const Header = ({ todos }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  todos: state.todos
+});
+
+export default connect(mapStateToProps)(Header);
