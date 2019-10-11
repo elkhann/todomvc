@@ -18,6 +18,13 @@ const initialState = [
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
+    case 'TOGGLE_TODO':
+      return console.log('toggle');
+    // state.map(todo =>
+    //   todo.id === action.id
+    //     ? { ...todo, done: !todo.done }
+    //     : todo
+    // );
     default:
       return state;
   }

@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toggleTodo } from '../actions';
 
 import { List, Button } from 'antd';
 
-const TodoList = ({ todos, removeTodo, completeTodo }) => {
+const TodoList = ({ todos, removeTodo }) => {
   return (
     <List
       itemLayout='horizontal'
       dataSource={todos}
-      renderItem={(todo, index) => (
+      renderItem={todo => (
         <List.Item>
           <List.Item.Meta
             title={todo.text}
-            onClick={() => completeTodo(index)}
+            onClick={() => toggleTodo(todo.id)}
             style={{
               textDecoration: todo.done
                 ? 'line-through'
@@ -32,4 +33,11 @@ const mapStateToProps = ({ todos }) => ({
   todos
 });
 
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = dispatch => ({
+  toggleTodo: id => dispatch(toggleTodo(id))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);
