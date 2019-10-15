@@ -1,27 +1,29 @@
-import React, { useState } from "react";
-import { Form, Input } from "antd";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { searchFilter } from '../actions';
 
+import { Form, Input } from 'antd';
 const { Search } = Input;
 
-const SearchForm = ({ searchTodo }) => {
-    const [value, setValue] = useState("");
+const SearchForm = ({ dispatch }) => {
+  const [value, setValue] = useState('');
 
-    const onSearch = value => {
-        setValue(value);
-        searchTodo(value);
-    };
+  const onSearch = value => {
+    setValue(value);
+    dispatch(searchFilter(value));
+  };
 
-    return (
-        <Form>
-            <Search
-                placeholder="What need to search?"
-                defaultValue={value}
-                enterButton="Search"
-                size="large"
-                onSearch={value => onSearch(value)}
-            />
-        </Form>
-    );
+  return (
+    <Form>
+      <Search
+        placeholder='What need to search?'
+        defaultValue={value}
+        enterButton='Search'
+        size='large'
+        onSearch={value => onSearch(value)}
+      />
+    </Form>
+  );
 };
 
-export default SearchForm;
+export default connect()(SearchForm);

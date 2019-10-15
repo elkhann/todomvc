@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../actions';
 
 import { Row, Col, Form, Input, Button } from 'antd';
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ dispatch }) => {
   const [value, setValue] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
     if (!value) return;
-    addTodo(value);
+    dispatch(addTodo(value));
     setValue('');
   };
 
@@ -39,4 +41,4 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export default TodoForm;
+export default connect()(TodoForm);

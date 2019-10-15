@@ -35,8 +35,8 @@ const Header = ({ todos }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  todos: state.todos
-});
+const mapStateToProps = ({ todos }) => {
+  return { todos };
+};
 
 export default connect(mapStateToProps)(Header);

@@ -18,13 +18,26 @@ const initialState = [
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
+    case 'ADD_TODO':
+      return [
+        ...state,
+        {
+          id: action.id,
+          text: action.text,
+          done: false
+        }
+      ];
+
+    case 'REMOVE_TODO':
+      return state.filter(todo => todo.id !== action.id);
+
     case 'TOGGLE_TODO':
-      return console.log('toggle');
-    // state.map(todo =>
-    //   todo.id === action.id
-    //     ? { ...todo, done: !todo.done }
-    //     : todo
-    // );
+      return state.map(todo =>
+        todo.id === action.id
+          ? { ...todo, done: !todo.done }
+          : todo
+      );
+
     default:
       return state;
   }

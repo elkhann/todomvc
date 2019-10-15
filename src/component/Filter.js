@@ -1,7 +1,11 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { visibilityFilter } from '../actions';
+
 import { Button } from 'antd';
 
-const Filter = ({ changeFilter, filter }) => {
+const Filter = ({ filter, dispatch }) => {
   const isActive = type => {
     if (type === filter) {
       return 'primary';
@@ -14,21 +18,23 @@ const Filter = ({ changeFilter, filter }) => {
         <Button
           type={isActive('all')}
           size='large'
-          onClick={() => changeFilter('all')}
+          onClick={() => dispatch(visibilityFilter('all'))}
         >
           All
         </Button>
         <Button
           type={isActive('active')}
           size='large'
-          onClick={() => changeFilter('active')}
+          onClick={() =>
+            dispatch(visibilityFilter('active'))
+          }
         >
           Active
         </Button>
         <Button
           type={isActive('done')}
           size='large'
-          onClick={() => changeFilter('done')}
+          onClick={() => dispatch(visibilityFilter('done'))}
         >
           Completed
         </Button>
@@ -37,4 +43,8 @@ const Filter = ({ changeFilter, filter }) => {
   );
 };
 
-export default Filter;
+const mapStateToProps = ({ visibilityFilter }) => {
+  return { filter: visibilityFilter };
+};
+
+export default connect(mapStateToProps)(Filter);
